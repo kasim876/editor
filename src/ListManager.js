@@ -1,53 +1,17 @@
 class ListManager {
     #items;
-    #selectsCache;
-    #observer = null;
 
     constructor() {
         this.#items = ["Пункт 1", "Пункт 2"];
-        this.#setupDOMObserver();
     }
 
     getItems() {
         return this.#items;
     }
 
-    #invalidateCache() {
-        this.#selectsCache = null;
-    }
-
-    #getSelects() {
-        if (!this.#selectsCache) {
-            const editorDoc = tinymce.activeEditor?.getDoc();
-            this.#selectsCache = editorDoc ? 
-                editorDoc.querySelectorAll('.select:not(.error)') : [];
-        }
-
-        return this.#selectsCache
-    }
-
-    #setupDOMObserver() {
-        const editorDoc = tinymce.activeEditor?.getDoc();
-        if (!editorDoc) return;
-
-        this.#observer = new MutationObserver((mutations) => {
-            mutations.forEach(mutation => {
-                if (mutation.type === 'childList') {
-                    this.#invalidateCache();
-                }
-            })
-        })
-
-        this.#observer.observe(editorDoc.body, {
-            childList: true,
-            subtree: true,
-        })
-    }
-
     addItem(newItem) {
         if (!newItem || this.#items.includes(newItem)) return false;
         this.#items.push(newItem);
-        console.log(this.#items)
         this.editMarkupOptions(null, newItem, 'ADD');
 
         return true;
@@ -76,7 +40,8 @@ class ListManager {
     }
 
     editMarkupOptions(oldItem, newItem, type) {
-        const selects = this.#getSelects();
+        const editorDoc = tinymce.activeEditor?.getDoc();
+        const selects = editorDoc.querySelectorAll('.select:not(.error)')
 
         switch (type) {
             case 'ADD':
