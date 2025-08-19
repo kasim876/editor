@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Editor</title>
+  <style>
+    :root {
+      --border-color: #ddd;
+      --error-bg: #ffdddd;
+      --error-border: red;
+      --hover-bg: #f0f0f0;
+      --editing-bg: #e0f7fa;
+      --select-bg: #f9f9f9;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    #list-insert {
+      display: block;
+      margin: 15px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    #add-item {
+      flex-grow: 1;
+    }
+
+    #items-list {
+      list-style: none;
+      padding: 0;
+      width: 350px;
+    }
+
+    #items-list li {
+      margin: 5px 0;
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    #items-list li:hover {
+      background: var(--hover-bg);
+    }
+
+    #items-list li.editing {
+      background: var(--editing-bg);
+    }
+
+    #editor {
+      border: 1px solid var(--border-color);
+      min-height: 300px;
+      margin-top: 10px;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    button {
+      cursor: pointer;
+      padding: 5px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      background: #fff;
+    }
+
+    button:hover {
+      background: var(--hover-bg);
+    }
+
+    input[type="text"] {
+      padding: 5px;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 50px;
+      width: 100%;
+    }
+
+    .select.error {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <editor-workspace></editor-workspace>
+    <template-panel></template-panel>
+  </div>
+
+  <script src="https://cdn.tiny.cloud/1/pr5rc03lt859n1kwkilh5cshysu2i2bjq85g130n4wa6yxgs/tinymce/8/tinymce.min.js"
+    referrerpolicy="origin" crossorigin="anonymous"></script>
+  <script src="webcomp-boilerplate.js"></script>
+  <script src="webcomp-boilerplate.min.js"></script>
+
+
+</body>
+
+</html>
